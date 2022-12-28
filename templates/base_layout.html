@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
+  </head>
+
+  <nav id="website-header" style="
+  background-color: rgba(91, 254, 232, 0.29);
+  border: 2px solid rgba(114, 106, 255, 0.53);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  justify-items: right;"
+>
+    <a href="{% url 'articles:list' %}" class="nav-links">
+      <img src="{% static 'logo.png'%}" id="site-logo" />
+    </a>
+
+    <a href="/about/" class="nav-links" style="float:right;margin-top: 20px;margin-bottom: 20px;">About us.</a>
+      
+    {% if user.is_authenticated %}
+
+      <form
+        action="{% url 'accounts:logout' %}"
+        class="logout-link"
+        method="post"
+        style="display:inline"
+      >
+        {% csrf_token %}
+        <button type="submit" class="nav-links" style="
+        background: none;
+        border: none;
+        color: white;
+        float: right;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        cursor:pointer;
+    ">Logout</button>
+      </form>
+
+      <a href="{% url 'articles:create' %}" class="nav-links" style="float:right;margin-top: 20px;margin-bottom: 20px;">Create a new article.</a>
+      <div>Logged in as {{user}}</div>
+      
+      {% else %}
+
+      <a href="{% url 'accounts:login' %}" class="nav-links">Login</a>
+
+      {% endif %}
+  </nav>
+
+  <body>
+
+    <div class="wrapper" style="margin-left:50px; margin-right: 50px;">
+      <h1></h1>
+      {% block content %} {% endblock %}
+    </div>
+  </body>
+</html>

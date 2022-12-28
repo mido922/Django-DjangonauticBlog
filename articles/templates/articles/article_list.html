@@ -1,0 +1,16 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content %}
+<h1>Article List</h1>
+<div class="articles">
+  {% for article in articles %}
+  <div class="article" style="background-color: #444444;border-radius: 45px;">
+    <h2 style="margin-left:45px; padding-top: 10px"><a href="{% url 'articles:detail' slug=article.slug %}">{{article.title}}</a></h2>
+    <p style="margin-top: 0px;margin-left:45px" >By: {{article.author}}. {{article.date}}</p>
+    <p style="margin-left:45px;margin-bottom: 20px; padding-bottom: 20px">{{article.snippet}}...</p>
+    
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
